@@ -128,8 +128,8 @@ public class LinkedList {
 		return p1;
 	}
 	
+	// O(n)
 	public int getPosition(int data) {
-		
 		if (head != null) {
 			int i = 0;
 			for (ListNode p = head; p != null; p = p.getNext())  {
@@ -209,6 +209,10 @@ public class LinkedList {
 			p.setNext(newNode);
 		}
 		length++;
+	}
+
+	public static void main(String[] args) {
+		
 	}
 	
 }
