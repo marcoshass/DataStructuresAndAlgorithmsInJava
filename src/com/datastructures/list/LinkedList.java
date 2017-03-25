@@ -23,7 +23,67 @@ public class LinkedList {
 		}
 		return size;
 	}
+	
+	// O(1)
+	public ListNode removeFromBegin() {
+		if (head == null)
+			return null;
+		
+		ListNode p = head;
+		head = p.getNext();
+		p.setNext(null);
 
+		length--;
+		return p;
+	}
+
+	// O(n) 
+	public ListNode removeFromEnd() {
+		ListNode p = head;
+		ListNode p1 = null;
+
+		if (head == null) // empty list
+			return null;
+		else if (head.getNext() == null) { // single node list
+			p1 = head;
+			head = null;
+		} else { // two or more nodes
+			while (p1.getNext() != null) {
+				p = p1;
+				p1 = p1.getNext();
+			}
+			p.setNext(null);
+		}
+
+		length--;
+		return p1;
+	}
+	
+	public ListNode removeMatched(ListNode node) {
+		ListNode p = head;
+		ListNode p1 = null;
+		
+		if (head == null) // empty list
+			return null;
+		else if (node.equals(head)) { // match head
+			p1 = head;
+			head = p1.getNext();
+			length--;
+		} else { // two or more nodes
+			while (p1.getNext() != null) {
+				if (p1.equals(node)) { // node found
+					p.setNext(p1.getNext());
+					p1.setNext(null);
+					length--;
+				} else {
+					p = p1;
+					p1 = p1.getNext();
+				}
+			}
+		}
+		return p1;
+	}
+	
 	// O(1)
 	public void insertAtBegin(ListNode node) {
 		node.setNext(head);
@@ -71,14 +131,6 @@ public class LinkedList {
 			p.setNext(newNode);
 		}
 		length++;
-	}
-	
-	
-	// Test
-	
-	public static void main(String[] args) {
-		LinkedList l = new LinkedList();
-		System.out.println("Length:" + l.listLength());
 	}
 	
 }
