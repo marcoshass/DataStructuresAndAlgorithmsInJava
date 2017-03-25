@@ -13,6 +13,10 @@ public class LinkedList {
 		return head;
 	}
 	
+	public int getLength() {
+		return length;
+	}
+	
 	// O(n)
 	public int listLength() {
 		int size = 0;
@@ -48,6 +52,7 @@ public class LinkedList {
 			p1 = head;
 			head = null;
 		} else { // two or more nodes
+			p1 = p.getNext();
 			while (p1.getNext() != null) {
 				p = p1;
 				p1 = p1.getNext();
@@ -59,6 +64,7 @@ public class LinkedList {
 		return p1;
 	}
 	
+	// O(n)
 	public ListNode removeMatched(ListNode node) {
 		ListNode p = head;
 		ListNode p1 = null;
@@ -70,18 +76,90 @@ public class LinkedList {
 			head = p1.getNext();
 			length--;
 		} else { // two or more nodes
+			p1 = p.getNext();
 			while (p1.getNext() != null) {
 				if (p1.equals(node)) { // node found
 					p.setNext(p1.getNext());
 					p1.setNext(null);
 					length--;
-				} else {
+				} else { // move next
 					p = p1;
 					p1 = p1.getNext();
 				}
 			}
 		}
+		
 		return p1;
+	}
+	
+	// O(n)
+	public ListNode remove(int position) {
+		ListNode p = head;
+		ListNode p1 = null;
+		
+		if (position < 0)
+			position = 0;
+		
+		if (position > length)
+			position = length;
+		
+		if (head == null) // empty list
+			return null;
+		else if (position == 0) { // remove head
+			p1 = head;
+			head = p1.getNext();
+			length--;
+		} else { // remove other than head
+			p1 = p.getNext();
+			int i = 1;
+			while (p1.getNext() != null) {
+				if (i == position) {
+					p.setNext(p1.getNext());
+					p1.setNext(null);
+					length--;
+				} else { // move next
+					p = p1;
+					p1 = p1.getNext();
+					i++;
+				}
+			}
+		}
+		
+		return p1;
+	}
+	
+	public int getPosition(int data) {
+		
+		if (head != null) {
+			int i = 0;
+			for (ListNode p = head; p != null; p = p.getNext())  {
+				if (data == p.getData())
+					return i;
+				else 
+					i++;
+			}
+		}
+		
+		return Integer.MIN_VALUE;
+	}
+
+	public void clearList() {
+		head = null;
+		length = 0;
+	}
+	
+	public String toString() {
+		String result = "[";
+		if (head == null)
+			return result + "]";
+		
+		result += head.getData();
+		ListNode temp = head.getNext();
+		while (temp != null) {
+			result += "," + temp.getData();
+			temp = temp.getNext();
+		}
+		return result += "]";
 	}
 	
 	// O(1)
