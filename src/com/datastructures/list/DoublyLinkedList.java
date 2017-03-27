@@ -192,4 +192,74 @@ public class DoublyLinkedList {
 		return data;
 	}
 	
+	// 1->null
+	// 1->2->3->null
+	//    ^
+	
+	/**
+	 * Remove a node matching the specified node from the list.
+	 * Use equals() instead of == to test for a matched node.
+	 */
+	public void removeMatched(DLLNode node) {
+		DLLNode p1 = null;
+		
+		 // empty list
+		if (head == null)
+			return;
+		else if (node.equals(head)) {
+			// match head
+			p1 = head.getNext();
+			if (p1 != null)
+				p1.setPrev(null);
+			
+			head.setNext(null);
+			head = p1;
+			length--;
+		} else {
+			// match after head
+			p1 = head.getNext();
+			while (p1 != null) {
+				if (p1.equals(node)) {
+					if (p1.getNext() != null)
+						p1.getNext().setPrev(p1.getPrev());
+					
+					p1.getPrev().setNext(p1.getNext());
+					p1.setNext(null);
+					p1.setPrev(null);
+					length--;
+					return;
+				} else {
+					// move next
+					p1 = p1.getNext();
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 * Return a string representation of this collection, in the form: ["str1","str2",...].
+	 */
+	public String toString() {
+		String result = "[]";
+		if (length == 0)
+			return result;
+		
+		result = "[" + head.getNext().getData();
+		DLLNode temp = head.getNext().getNext();
+		while (temp != null) {
+			result += "," + temp.getData();
+			temp = temp.getNext();
+		}
+		return result + "]";
+	}
+	
+	/**
+	 * Remove everything from the DLL.
+	 */
+	public void clearList() {
+		head = null;
+		length = 0;
+	}
+	
 }
