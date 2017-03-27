@@ -203,6 +203,7 @@ public class LinkedList {
 			int i = 0;
 			while (p.getNext() != null && i < position) {
 				p = p.getNext();
+				i++;
 			}
 			
 			newNode.setNext(p.getNext());
