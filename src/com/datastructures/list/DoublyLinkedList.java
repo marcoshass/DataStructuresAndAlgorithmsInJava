@@ -133,12 +133,6 @@ public class DoublyLinkedList {
 		return data;
 	}
 	
-	// null
-	// 1->null
-	// 1->2->null
-	//    ^
-	//    1
-	
 	/**
 	 * Remove the value at a given position.
 	 * If the position is less than 0, remove value at position 0.
@@ -191,10 +185,6 @@ public class DoublyLinkedList {
 		
 		return data;
 	}
-	
-	// 1->null
-	// 1->2->3->null
-	//    ^
 	
 	/**
 	 * Remove a node matching the specified node from the list.
