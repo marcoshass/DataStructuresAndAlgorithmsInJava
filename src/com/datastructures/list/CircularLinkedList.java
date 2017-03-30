@@ -5,6 +5,9 @@ public class CircularLinkedList {
 	private CLLNode head;
 	private int length;
 
+	/**
+	 * Constructs a new circular list.
+	 */
 	public CircularLinkedList() {
 	}
 
@@ -49,6 +52,13 @@ public class CircularLinkedList {
 			System.out.print("->*");
 		}
 		
+	}
+
+	/**
+	 * Adds data to beginning of list.
+	 */
+	public void add(int data) {
+		addToHead(data);
 	}
 	
 	/**
@@ -206,6 +216,114 @@ public class CircularLinkedList {
 		return data;
 	}
 
-	// public boolean contains(int data) ...
+	/**
+	 * Returns true if list contains data, else otherwise.
+	 */
+	public boolean contains(int data) { // O(n)
+		// empty list
+		if (head == null) {
+			return false;
+		} else if (head.getData() == data) {
+			// head contains data
+			return true;
+		} else {
+			// search for data after head
+			CLLNode p = head.getNext();
+			while (p != head) {
+				if (p.getData() == data)
+					return true; // found
+				
+				p = p.getNext();
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Removes and returns element equal to data, or zero.
+	 */
+	public int remove(int data) { // O(n)
+		int found = 0;
+		
+		// empty list
+		if (head == null) {
+			return 0;
+		} else if (head.getData() == data) {
+			found = data;
+			length--;
+
+			// adjust pointers
+			CLLNode temp = head;
+			head = head.getNext();
+			temp.setNext(null);
+		} else {
+			// search after head
+			CLLNode p = head;
+			CLLNode p1 = p.getNext();
+			while (p1 != head) {
+				if (p1.getData() == data) {
+					found = p1.getData();
+					length--;
+
+					// adjust pointers
+					p.setNext(p1.getNext());
+					p1.setNext(null);
+					break;
+				} else {
+					// move both pointers
+					p = p1;
+					p1 = p1.getNext();
+				}
+			}
+		}
+		
+		return found;
+	}
+	
+	/**
+	 * Return the current length of the CLL.
+	 */
+	public int size() {
+		return length;
+	}
+	
+	/**
+	 * Return the current length of the CLL.
+	 */
+	public int getLength() {
+		return length;
+	}
+
+	/**
+	 * Returns true if there are no elements in the list.
+	 */
+	public boolean isEmpty() {
+		return head == null;
+	}
+	
+	/**
+	 * Remove everything from the CLL.
+	 */
+	public void clear() {
+		head = null;
+		length = 0;
+	}
+	
+	/**
+	 * Return a string representation of this collection, in the form: ["str1", "str2", ...].
+	 */
+	public String toString() {
+		String result = "[";
+		if (head == null)
+			return result + "]";
+		
+		result += head.getData();
+		CLLNode temp = head.getNext();
+		while (temp != null) {
+			result += "," + temp.getData();
+			temp = temp.getNext();
+		}
+		return result += "]";
+	}
 	
 }
