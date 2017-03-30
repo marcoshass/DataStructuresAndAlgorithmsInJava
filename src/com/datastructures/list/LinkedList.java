@@ -92,6 +92,41 @@ public class LinkedList {
 		return p1;
 	}
 	
+	//
+	// A->B->C->null
+	//    n  t
+	//
+	
+	/**
+	 * Remove node from linked list in constant time. 
+	 */
+	public ListNode removeNode(ListNode node) { // O(1)
+		ListNode removed = null;
+
+		if (node == null || node.getNext() == null)
+			throw new IllegalArgumentException("The node to be deleted or the next one cannot be null.");
+		
+		if (node == head) {
+			// node is head
+			length--;
+			removed = node;
+			head = node.getNext();
+			node.setNext(null);
+		} else {
+			length--;
+			removed = node;
+			
+			// adjust pointers
+			ListNode tmp = node.getNext();
+			
+			node.setData(tmp.getData());
+			node.setNext(tmp.getNext());
+			tmp.setNext(null);
+		}
+		
+		return removed;
+	}
+	
 	// O(n)
 	public ListNode remove(int position) {
 		ListNode p = head;
@@ -213,7 +248,20 @@ public class LinkedList {
 	}
 
 	public static void main(String[] args) {
+		ListNode a = new ListNode(1);
+		ListNode b = new ListNode(2);
+		ListNode c = new ListNode(3);
 		
+		a.setNext(b);
+		b.setNext(c);
+		
+		LinkedList l = new LinkedList();
+		l.head = a;
+		
+		System.out.println(l);
+		
+		l.removeNode(b);
+		System.out.println(l);
 	}
 	
 }
