@@ -83,6 +83,39 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 		return indexOf(o) != -1;
 	}
 	
+	/**
+	 * Returns the index of the first occurrence of the specified element
+	 * in this list, or -1 if this list does not contain the element.
+	 * More formally, returns the lowest index <tt>i</tt> such that
+	 * <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>,
+	 * or -1 if there is no such index.
+	 * 
+	 * @param o element to search for
+	 * @return the index of the first occurrence of the specified element in
+	 * 		   this list, or -1 if this list does not contain the element
+	 */
+	@Override
+	public int indexOf(Object o) {
+		int index = 0;
+		Node node = firstNode;
+		
+		if (o == null) {
+			while (node != null) {
+				for (int ptr = 0; ptr < node.numElements; ptr++) {
+					if (node.elements[ptr] == null) {
+						return index + ptr;
+					}
+				}
+				index += node.numElements;
+				node = node.next;
+			}
+		} else {
+			
+		}
+		
+		return -1;
+	}
+	
 	private class Node {
 		
 		/**
@@ -109,7 +142,8 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 		 * Constructs a new node based on the unrolled linked list capacity.
 		 */
 		Node() {
-			elements = new Object[nodeCapacity];
+			numElements = nodeCapacity;
+			elements = new Object[numElements];
 		}
 		
 	}
@@ -118,6 +152,11 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 	public E get(int index) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static void main(String[] args) {
+		UnrolledLinkedList<Integer> l = new UnrolledLinkedList();
+		l.indexOf(null);
 	}
 	
 }
