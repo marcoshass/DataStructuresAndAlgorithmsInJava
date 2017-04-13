@@ -2,7 +2,10 @@ package com.datastructures.list;
 
 import java.io.Serializable;
 import java.util.AbstractList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 //ref https://github.com/l-tamas/Unrolled-linked-list/blob/master/src/org/megatherion/util/collections/UnrolledLinkedList.java
 
@@ -82,6 +85,14 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 	public boolean contains(Object o) {
 		return indexOf(o) != -1;
 	}
+
+	/**
+	 * Returns an iterator over the elements in this list in proper sequence.
+	 */
+	@Override
+	public Iterator<E> iterator() {
+		return new ULLIterator(firstNode, 0, 0);
+	}
 	
 	/**
 	 * Returns the index of the first occurrence of the specified element
@@ -110,11 +121,27 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 				node = node.next;
 			}
 		} else {
-			
+			while (node != null) {
+				for (int ptr = 0; ptr < node.numElements; ptr++) {
+					if (o.equals(node.elements[ptr])) {
+						return index + ptr;
+					}
+				}
+				index += node.numElements;
+				node = node.next;
+			}			
 		}
 		
 		return -1;
 	}
+	
+	@Override
+	public E get(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private static final long serialVersionUID = -674052309103045211L;
 	
 	private class Node {
 		
@@ -148,15 +175,85 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 		
 	}
 
-	@Override
-	public E get(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	private class ULLIterator implements ListIterator<E> {
+		Node currentNode;
+		int ptr;
+		int index;
+		
+		private int expectedModCount = modCount;
+		
+		ULLIterator(Node node, int ptr, int index) {
+			this.currentNode = node;
+			this.ptr = ptr;
+			this.index = index;
+		}
+		
+		@Override
+		public boolean hasNext() {
+			return index < size - 1;
+		}
+		
+		public E next() {
+			ptr++;
+			if (ptr >= currentNode.numElements) {
+				if (currentNode.next != null) {
+					currentNode = currentNode.next;
+					ptr = 0;
+				} else {
+					throw new NoSuchElementException();
+				}
+			}
+			index++;
+			checkForModification();
+			return (E) currentNode.elements[ptr];
+		}
+		
+		private void checkForModification() {
+			
+		}
 
-	public static void main(String[] args) {
-		UnrolledLinkedList<Integer> l = new UnrolledLinkedList();
-		l.indexOf(null);
+		@Override
+		public boolean hasPrevious() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public E previous() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int nextIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int previousIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void set(E e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void add(E e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 }

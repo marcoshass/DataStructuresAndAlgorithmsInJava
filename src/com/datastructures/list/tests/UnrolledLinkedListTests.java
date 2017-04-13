@@ -24,18 +24,17 @@ public class UnrolledLinkedListTests {
 	}
 
 	@Test
-	public void testSizeDefault() {
+	public void testSize_EmptyList_ReturnsSixteen() {
 		assertEquals(16, 16);
 	}
 
 	@Test
-	public void testIsEmpty() {
+	public void testIsEmpty_EmptyList_ReturnsTrue() {
 		assertTrue(l.isEmpty());
 	}
 
 	@Test
-	public void testIndexOfNull() {
-		System.out.println(l.indexOf(null));
+	public void testIndexOf_Null_ReturnsZero() {
 		assertEquals(0, l.indexOf(null)); 
 	}
 
