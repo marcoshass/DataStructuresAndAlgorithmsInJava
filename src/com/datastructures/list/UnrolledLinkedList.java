@@ -135,6 +135,32 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 		return -1;
 	}
 	
+	/**
+	 * Appends the specified element to the end of this list.
+	 * 
+	 * @param e element to be appended to this list
+	 * @return <tt>true</tt> (as specified by {@link Collection#add}}
+	 */
+	@Override
+	public boolean add(E e) {
+		insertIntoNode(lastNode, lastNode.numElements, e);
+		return true;
+	}
+	
+	/**
+	 * Insert an element into the specified node. If the node is already full,
+	 * a new node will be created and inserted into the list after
+	 * the specified node.
+	 * 
+	 * @param node
+	 * @param ptr the position at which the element should be inserted
+	 * 		  into the <tt>node.elements</tt> array
+	 * @param element the element to be inserted
+	 */
+	private void insertIntoNode(Node node, int ptr, E element) {
+		
+	}
+	
 	@Override
 	public E get(int index) {
 		// TODO Auto-generated method stub
