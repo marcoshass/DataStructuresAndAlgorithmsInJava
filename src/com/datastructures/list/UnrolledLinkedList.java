@@ -66,11 +66,23 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 	 * Returns <tt>true</tt> if this list contains no elements.
 	 */
 	public boolean isEmpty() {
-		return (size == 0);
+		return size == 0;
 	}
 	
+	/**
+	 * Returns <tt>true</tt> if this list contains the specified element.
+	 * More formally, returns <tt>true</tt> if and only if this list contains
+	 * at least one element <tt>e</tt> such that
+	 * <tt>(o==null&nbsp;?&nbsp;e==null&nbsp;:&nbsp;;o.equals(e))</tt>.
+	 * 
+	 * @param o element whose present in this list is to be tested
+	 * @return <tt>true</tt> if this list contains the specified element
+	 */
+	@Override
+	public boolean contains(Object o) {
+		return indexOf(o) != -1;
+	}
 	
-
 	private class Node {
 		
 		/**
@@ -100,6 +112,12 @@ public class UnrolledLinkedList<E> extends AbstractList<E> implements List<E>, S
 			elements = new Object[nodeCapacity];
 		}
 		
+	}
+
+	@Override
+	public E get(int index) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
