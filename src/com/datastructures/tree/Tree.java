@@ -67,49 +67,77 @@ public class Tree {
 	public void delete(int id) {
 		
 	}
+	
+	/**
+	 * Inorder traversal of the tree, in a binary search tree
+	 * the values are processed in ascending order.
+	 */
+	public void inOrder(Node node) {
+		if (node == null)
+			return;
+		
+		inOrder(node.leftChild);
+		node.displayNode();
+		inOrder(node.rightChild);
+	}
 
+	//      > 50
+	//       /  \
+	//      30   60
+	//     / \
+	//    20  40 // 50 30 20 40 60
+	//
+	//                 50               50   
+	//                /  \             /  \  
+	//             > 30   60        > 30   60
+	//              / \              / \
+	//             20  40           20  40 
+	//
+	//                       50            50   
+	//                      /  \          /  \  
+	//                     30   60       30   60
+	//                    / \           / \    
+	//                 > 20  40        20  40 <               
+	//
+
+	/**
+	 * Preorder traversal of the tree.
+	 */
+	public void preOrder(Node node) {
+		if (node == null)
+			return;
+		
+		node.displayNode();
+		preOrder(node.leftChild);
+		preOrder(node.rightChild);
+	}
+	
 	public static void main(String[] args) {
 		Tree theTree = new Tree();
 		theTree.root = theTree.buildTree();
-		
-		theTree.insert(61, 0);
-		
-		Node nodeToFind = theTree.find(61);
-		if (nodeToFind != null)
-			System.out.println("Found node " + nodeToFind.iData);
-		else
-			System.out.println("Node not found");
+		theTree.preOrder(theTree.root);
+//		theTree.insert(61, 0);
+//		
+//		Node nodeToFind = theTree.find(61);
+//		if (nodeToFind != null)
+//			System.out.println("Found node " + nodeToFind.iData);
+//		else
+//			System.out.println("Node not found");
 	}
 	
 	private Node buildTree() {
-		Node node63 = new Node(63);
-		Node node27 = new Node(27);
-		Node node80 = new Node(80);
-		Node node13 = new Node(13);
-		Node node51 = new Node(51);
-		Node node70 = new Node(70);
-		Node node92 = new Node(92);
-		Node node26 = new Node(26);
-		Node node33 = new Node(33);
-		Node node58 = new Node(58);
-		Node node82 = new Node(82);
-		Node node57 = new Node(57);
+		Node node50 = new Node(50);
+		Node node30 = new Node(30);
 		Node node60 = new Node(60);
+		Node node20 = new Node(20);
+		Node node40 = new Node(40);
 		
-		node63.leftChild = node27;
-		node63.rightChild = node80;
-		node27.leftChild = node13;
-		node27.rightChild = node51;
-		node80.leftChild = node70;
-		node80.rightChild = node92;
-		node13.rightChild = node26;
-		node51.leftChild = node33;
-		node51.rightChild = node58;
-		node92.leftChild = node82;
-		node58.leftChild = node57;
-		node58.rightChild = node60;
+		node50.leftChild = node30;
+		node50.rightChild = node60;
+		node30.leftChild = node20;
+		node30.rightChild = node40;
 		
-		return node63;
+		return node50;
 	}
 	
 }

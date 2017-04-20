@@ -44,7 +44,7 @@ class Node {
 	 * Print a string representation of the node.
 	 */
 	public void displayNode() {
-		
+		System.out.print(iData + " ");
 	}
 	
 }
