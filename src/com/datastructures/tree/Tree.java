@@ -35,23 +35,29 @@ public class Tree {
 	 * Insert the node with specific key and value parameters.
 	 */
 	public void insert(int key, float dd) {
-		Node current = root;
-		Node nodeToInsert = new Node(key, dd);
+		Node newNode = new Node(key, dd);
 		
-		while (current != null) {
-			if (key < current.iData) {
-				if (current.leftChild == null) {
-					current.leftChild = nodeToInsert;
-					break;
+		if (root == null) {
+			root = newNode;
+		} else {
+			Node current = root;
+			while (current != null) {
+				if (key < current.iData) {
+					if (current.leftChild == null) {
+						current.leftChild = newNode;
+						break;
+					} else {
+						// down to left
+						current = current.leftChild;
+					}
 				} else {
-					current = current.leftChild;
-				}
-			} else {
-				if (current.rightChild == null) {
-					current.rightChild = nodeToInsert;
-					break;
-				} else {
-					current = current.rightChild;
+					if (current.rightChild == null) {
+						current.rightChild = newNode;
+						break;
+					} else {
+						// down to right
+						current = current.rightChild;
+					}
 				}
 			}
 		}
