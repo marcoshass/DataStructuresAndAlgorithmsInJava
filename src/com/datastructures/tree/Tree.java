@@ -64,8 +64,144 @@ public class Tree {
 		
 	}
 	
-	public void delete(int id) {
+	/**
+	 * Find minimum node following the leftChild of the binary search tree.
+	 */
+	public Node minimum() {
+		if (root == null) {
+			return null;
+		}
+
+		Node current = root;
+		while (current.leftChild != null) {
+			current = current.leftChild;
+		}
+		return current;
+	}
+	
+	/**
+	 * Find the maximum node following the rightChild of the binary search tree.
+	 */
+	public Node maximum() {
+		if (root == null) {
+			return null;
+		}
 		
+		Node current = root;
+		while (current.rightChild != null) {
+			current = current.rightChild;
+		}
+		return current;
+	}
+	
+	//      > 50
+	//       /  \
+	//      30   60
+	//     / \
+	//    20  40
+	//
+	//                 50               50   
+	//                /  \             /  \  
+	//             l 30   60        > 30   60
+	//              / \              / \
+	//           c 20  40           20  40 
+	//
+	//                       50            50   
+	//                      /  \          /  \  
+	//                     30   60       30   60
+	//                    / \           / \    
+	//                 > 20  40        20  40 <               
+	//
+
+	/**
+	 * Get information about the children of the specified node.
+	 * 
+	 * @return 0 node has no children
+	 * 		   1 node has only the left child
+	 * 		   2 node has only the right child
+	 * 		   3 node has both children
+	 */
+	private int getChildrenInfo(Node node) {
+		if (node == null) {
+			throw new IllegalArgumentException("Node to get info cannot be null");
+		} else if (node.leftChild == null & node.rightChild == null) {
+			// has no children
+			return 0;
+		} else if (node.leftChild != null & node.rightChild == null) {
+			// has only the left child
+			return 1;
+		} else if (node.rightChild != null & node.leftChild == null) {
+			// has only the right child
+			return 2;
+		} else {
+			// has both children
+			return 3;
+		}
+	}
+	
+	/**
+	 * Delete the node with the key specified from the binary search tree.
+	 */
+	public boolean delete(int key) {
+		if (root == null) {
+			// root is null, nothing to process
+			return false;
+		} else if (key == root.iData) {
+			// delete root, remaining nodes will be garbage collected
+			root = null;
+			return true;
+		} else {
+
+			Node current = root;
+			Node previous = current;
+
+			// delete node other than root
+			while (current != null) {
+				if (key == current.iData) {
+					if (previous.leftChild == current) {
+						if (getChildrenInfo(current) == 1) {
+							// current has only one left child, snap it to previous
+							previous.leftChild = current.leftChild;
+						} else if (getChildrenInfo(current) == 2) {
+							// current has only one right child, snap it to previous
+							previous.leftChild = current.rightChild;
+						} else if (getChildrenInfo(current) == 0) {
+							// current has no children
+							previous.leftChild = null;
+						} else {
+							// current has both children
+							throw new RuntimeException("Deletion of a node with both children not yet supported");
+						}
+					} else {
+						if (getChildrenInfo(current) == 1) {
+							// current has only one left child, snap it to previous
+							previous.rightChild = current.leftChild;
+						} else if (getChildrenInfo(current) == 2) {
+							// current has only one right child, snap it to previous
+							previous.rightChild = current.rightChild;
+						} else if (getChildrenInfo(current) == 0) {
+							// current has no children
+							previous.rightChild = null;
+						} else {
+							// current has both children
+							throw new RuntimeException("Deletion of a node with both children not yet supported");
+						}
+					}
+					return true; // node was deleted
+				} else if (key < current.iData) {
+					// navigate to the left
+					previous = current;
+					current = current.leftChild;
+				} else {
+					// navigate to the right
+					previous = current;
+					current = current.rightChild;
+				}
+			}
+			
+		}
+
+		return false;
 	}
 	
 	/**
@@ -81,25 +217,6 @@ public class Tree {
 		inOrder(node.rightChild);
 	}
 
-	//      > 50
-	//       /  \
-	//      30   60
-	//     / \
-	//    20  40 // 50 30 20 40 60
-	//
-	//                 50               50   
-	//                /  \             /  \  
-	//             > 30   60        > 30   60
-	//              / \              / \
-	//             20  40           20  40 
-	//
-	//                       50            50   
-	//                      /  \          /  \  
-	//                     30   60       30   60
-	//                    / \           / \    
-	//                 > 20  40        20  40 <               
-	//
-
 	/**
 	 * Preorder traversal of the tree.
 	 */
@@ -112,17 +229,29 @@ public class Tree {
 		preOrder(node.rightChild);
 	}
 	
+	/**
+	 * Postorder traversal of the tree.
+	 */
+	public void postOrder(Node node) {
+		if (node == null)
+			return;
+		
+		postOrder(node.leftChild);
+		postOrder(node.rightChild);
+		node.displayNode();
+	}
+	
 	public static void main(String[] args) {
-		Tree theTree = new Tree();
-		theTree.root = theTree.buildTree();
-		theTree.preOrder(theTree.root);
-//		theTree.insert(61, 0);
-//		
-//		Node nodeToFind = theTree.find(61);
-//		if (nodeToFind != null)
-//			System.out.println("Found node " + nodeToFind.iData);
-//		else
-//			System.out.println("Node not found");
+		Tree t = new Tree();
+		t.root = t.buildTree();
+
+		t.delete(30);
+		
+		Node node = t.find(20);
+		if (node != null)
+			System.out.println("Found node " + node.iData);
+		else
+			System.out.println("Node not found");
 	}
 	
 	private Node buildTree() {
@@ -135,7 +264,7 @@ public class Tree {
 		node50.leftChild = node30;
 		node50.rightChild = node60;
 		node30.leftChild = node20;
-		node30.rightChild = node40;
+		//node30.rightChild = node40;
 		
 		return node50;
 	}
