@@ -12,7 +12,8 @@ public class LinkedListsProblems {
 		l.insertAtEnd(new ListNode(40));
 		l.insertAtEnd(new ListNode(50));
 
-		appendData(l, 60);
+		//appendData(l, 60);
+		pop(l);
 		System.out.println(l);
 	}
 
@@ -65,6 +66,16 @@ public class LinkedListsProblems {
 			current.setNext(newNode);
 		}
 		
+	}
+	
+	/**
+	 * Pop a linked list element as if it was a stack. 
+	 */
+	static ListNode pop(LinkedList list) {
+		if (list == null)
+			throw new IllegalArgumentException("List to pop element cannot be null.");
+		
+		return list.removeFromBegin();
 	}
 	
 	
