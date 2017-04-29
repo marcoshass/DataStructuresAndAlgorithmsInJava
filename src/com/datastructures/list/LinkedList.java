@@ -204,18 +204,16 @@ public class LinkedList {
 		length++;
 	}
 
-	// O(n)
 	public void insertAtEnd(ListNode node) {
-		ListNode p = head;
-		if (p != null) {
-			// Traverse the list until the last node O(n)
-			while(p.getNext() != null)
-				p = p.getNext();
-			
-			p.setNext(node);
-		} else {
-			// List is empty, node becomes head O(1)
+		// list is empty
+		if (head == null) {
 			head = node;
+		} else {
+			ListNode current = head;
+			while (current.getNext() != null) {
+				current = current.getNext();
+			}
+			current.setNext(node);
 		}
 		length++;
 	}
