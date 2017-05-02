@@ -6,9 +6,14 @@ public class LinkedListsProblems {
 		ListNode node1 = new ListNode(1);
 		ListNode node2 = new ListNode(2);
 		ListNode node3 = new ListNode(3);
-		ListNode node4 = new ListNode(4);
-		ListNode node5 = new ListNode(5);
-		ListNode node6 = new ListNode(6);
+		ListNode node4 = new ListNode(3);
+		ListNode node5 = new ListNode(3);
+		ListNode node6 = new ListNode(5);
+		ListNode node7 = new ListNode(6);
+		ListNode node8 = new ListNode(7);
+		ListNode node9 = new ListNode(8);
+		ListNode node10 = new ListNode(8);
+		ListNode node11 = new ListNode(8);
 		
 		LinkedList source = new LinkedList();
 		source.insertAtEnd(node1);
@@ -18,10 +23,62 @@ public class LinkedListsProblems {
 		source.insertAtEnd(node5);
 		source.insertAtEnd(node6);
 		
-		LinkedList frontRef = new LinkedList();
-		LinkedList backRef = new LinkedList();
-		frontBackSplit(source, frontRef, backRef);
-		System.out.println(backRef + " " + frontRef);
+		
+		removeDuplicates(source);
+		System.out.println(source);
+	}
+	
+	// 1->2->3->3->3->5->6->7->8->8->8->null
+	//    ^  ^
+	//   p0  p1
+	//
+	// 1->2->3------->5->6->7->8->8->8->null
+	//       ^        ^
+	//      p0        p1
+	//
+	// 1->2->3------->5->6->7->8  8->8->null
+	//                         ^        ^
+	//                        p0        p1
+	
+	/**
+	 * Remove duplicates from the ordered linked list.
+	 */
+	static void removeDuplicates(LinkedList source) {
+		if (source == null)
+			throw new IllegalArgumentException("Linked list to remove duplicates cannot be null");
+		
+		if (source.getHead() == null)
+			throw new IllegalArgumentException("Linked list to remove duplicates cannot be empty");
+		
+		if (source.getHead().getNext() == null) // one node list
+			return;
+		
+		// reset pointers
+		ListNode p0 = source.getHead();
+		ListNode p1 = p0.getNext();
+
+		while (p1 != null) {
+			if (p0.getData() == p1.getData()) {
+				if (p0.getNext() != null) { // we didn't start to move p1
+					p0.setNext(null);
+					p1 = p1.getNext();
+				} else { // move p1 until a different node
+					p1 = p1.getNext();
+				}
+			} else {
+				if (p0.getNext() != null) {
+					p1 = p1.getNext();
+					p0 = p0.getNext();
+				} else {
+					// connect p0 to the different node p1
+					p0.setNext(p1);
+
+					// move both pointers
+					p1 = p1.getNext();
+					p0 = p0.getNext();
+				}
+			}
+		}
 		
 	}
 
