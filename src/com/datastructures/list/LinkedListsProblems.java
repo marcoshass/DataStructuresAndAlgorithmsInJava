@@ -3,17 +3,68 @@ package com.datastructures.list;
 public class LinkedListsProblems {
 
 	public static void main(String[] args) {
-		LinkedList a = new LinkedList();
-		a.insertAtEnd(new ListNode(1));
-		a.insertAtEnd(new ListNode(5));
-		a.insertAtEnd(new ListNode(7));
+		ListNode node1 = new ListNode(1);
+		ListNode node2 = new ListNode(2);
+		ListNode node3 = new ListNode(3);
+		ListNode node4 = new ListNode(4);
+		ListNode node5 = new ListNode(5);
+		ListNode node6 = new ListNode(6);
+		
+		LinkedList source = new LinkedList();
+		source.insertAtEnd(node1);
+		source.insertAtEnd(node2);
+		source.insertAtEnd(node3);
+		source.insertAtEnd(node4);
+		source.insertAtEnd(node5);
+		source.insertAtEnd(node6);
+		
+		LinkedList frontRef = new LinkedList();
+		LinkedList backRef = new LinkedList();
+		frontBackSplit(source, frontRef, backRef);
+		System.out.println(backRef + " " + frontRef);
+		
+	}
 
-		LinkedList b = new LinkedList();
-		b.insertAtEnd(new ListNode(4));
-		b.insertAtEnd(new ListNode(6));
-		b.insertAtEnd(new ListNode(8));
+	/**
+	 * Split a source linked list into two lists. If the number
+	 * of items is odd the additional item is held on the first. 
+	 */
+	static void frontBackSplit(LinkedList source, LinkedList frontRef, LinkedList backRef) { // O(n)
+		ListNode slow = null;
+		ListNode fast = null;
+		
+		// Lists cannot be null
+		if (source == null || frontRef == null || backRef == null)
+			throw new IllegalArgumentException("Lists cannot be null");
 
-		System.out.println(appendSecondList(a, b));
+		// Source list cannot be empty
+		if (source.getHead() == null)
+			throw new IllegalArgumentException("Source list cannot be empty");
+		
+		// Target lists must be empty
+		if (frontRef.getLength() != 0 || backRef.getLength() != 0)
+			throw new IllegalArgumentException("Target lists must be empty");
+		
+		slow = fast = source.getHead();
+
+		// Adjust the backRef
+		backRef.setHead(slow);
+		
+		while (fast != null) {
+			fast = fast.getNext(); // move fast
+			if (fast == null) {
+				break;
+			}
+			
+			fast = fast.getNext(); // move fast again
+			if (fast != null) {
+				slow = slow.getNext();	
+			}
+		}
+		
+		// Adjust the frontRef
+		frontRef.setHead(slow.getNext());
+		slow.setNext(null);
 	}
 	
 	static boolean isNullOrEmpty(LinkedList list) {

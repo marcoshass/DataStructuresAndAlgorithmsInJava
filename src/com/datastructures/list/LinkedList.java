@@ -13,6 +13,13 @@ public class LinkedList {
 		return head;
 	}
 	
+	public void setHead(ListNode value) {
+		head = value;
+		
+		if (value != null)
+			length++;
+	}
+	
 	public int getLength() {
 		return length;
 	}
