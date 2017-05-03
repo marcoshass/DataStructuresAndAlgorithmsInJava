@@ -3,42 +3,51 @@ package com.datastructures.list;
 public class LinkedListsProblems {
 
 	public static void main(String[] args) {
-		ListNode node1 = new ListNode(1);
+		ListNode node1 = new ListNode(0);
 		ListNode node2 = new ListNode(2);
-		ListNode node3 = new ListNode(3);
-		ListNode node4 = new ListNode(3);
-		ListNode node5 = new ListNode(3);
-		ListNode node6 = new ListNode(5);
-		ListNode node7 = new ListNode(6);
-		ListNode node8 = new ListNode(7);
-		ListNode node9 = new ListNode(8);
-		ListNode node10 = new ListNode(8);
-		ListNode node11 = new ListNode(8);
+		ListNode node3 = new ListNode(4);
+		ListNode node4 = new ListNode(6);
+
+		ListNode node5 = new ListNode(1);
+		ListNode node6 = new ListNode(2);
+		ListNode node7 = new ListNode(3);
+		ListNode node8 = new ListNode(5);
 		
-		LinkedList source = new LinkedList();
-		source.insertAtEnd(node1);
-		source.insertAtEnd(node2);
-		source.insertAtEnd(node3);
-		source.insertAtEnd(node4);
-		source.insertAtEnd(node5);
-		source.insertAtEnd(node6);
+		LinkedList sourceRef = new LinkedList();
+		sourceRef.insertAtEnd(node1);
+		sourceRef.insertAtEnd(node2);
+		sourceRef.insertAtEnd(node3);
+		sourceRef.insertAtEnd(node4);
 		
-		
-		removeDuplicates(source);
-		System.out.println(source);
+		LinkedList destRef = new LinkedList();
+		destRef.insertAtEnd(node5);
+		destRef.insertAtEnd(node6);
+		destRef.insertAtEnd(node7);
+		destRef.insertAtEnd(node8);
+
+		moveNode(sourceRef, destRef);
+		System.out.println(destRef);
 	}
 	
-	// 1->2->3->3->3->5->6->7->8->8->8->null
-	//    ^  ^
-	//   p0  p1
-	//
-	// 1->2->3------->5->6->7->8->8->8->null
-	//       ^        ^
-	//      p0        p1
-	//
-	// 1->2->3------->5->6->7->8  8->8->null
-	//                         ^        ^
-	//                        p0        p1
+	/**
+	 * Move node from the head of one list and add to the front of another.
+	 */
+	static void moveNode(LinkedList sourceRef, LinkedList destRef) { // O(1)
+		if (sourceRef == null || destRef == null)
+			throw new IllegalArgumentException("Lists cannot be null");
+
+		// first list is empty, nothing to do
+		if (sourceRef.getLength() == 0)
+			return;
+		
+		// detach source head of the source list
+		ListNode sourceHead = sourceRef.getHead();
+		sourceRef.setHead(sourceHead.getNext());
+		
+		// source head will become the new target head
+		sourceHead.setNext(destRef.getHead());
+		destRef.setHead(sourceHead);
+	}
 	
 	/**
 	 * Remove duplicates from the ordered linked list.
