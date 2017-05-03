@@ -13,20 +13,63 @@ public class LinkedListsProblems {
 		ListNode node7 = new ListNode(3);
 		ListNode node8 = new ListNode(5);
 		
-		LinkedList sourceRef = new LinkedList();
-		sourceRef.insertAtEnd(node1);
-		sourceRef.insertAtEnd(node2);
-		sourceRef.insertAtEnd(node3);
-		sourceRef.insertAtEnd(node4);
+		LinkedList a = new LinkedList();
+		a.insertAtEnd(node1);
+		a.insertAtEnd(node2);
+		a.insertAtEnd(node3);
+		a.insertAtEnd(node4);
 		
-		LinkedList destRef = new LinkedList();
-		destRef.insertAtEnd(node5);
-		destRef.insertAtEnd(node6);
-		destRef.insertAtEnd(node7);
-		destRef.insertAtEnd(node8);
+		LinkedList b = new LinkedList();
+		b.insertAtEnd(node5);
+		b.insertAtEnd(node6);
+		b.insertAtEnd(node7);
+		b.insertAtEnd(node8);
 
-		moveNode(sourceRef, destRef);
-		System.out.println(destRef);
+		System.out.println(sortedMerge(a, b));
+	}
+	
+	/**
+	 * Merge two sorted lists to get a new sorted list with all elements from both lists.
+	 */
+	static LinkedList sortedMerge(LinkedList a, LinkedList b) {
+		LinkedList mergedList = new LinkedList();
+		ListNode nodeA;
+		ListNode nodeB;
+
+		if (a == null & b == null)
+			throw new IllegalArgumentException("Lists to merge cannot be null");
+
+		nodeA = a.getHead();
+		nodeB = b.getHead();
+
+		// one of the lists is empty
+		if (a.getLength() == 0) {
+			mergedList.insertAtEnd(nodeB);
+			return mergedList;
+		} else if (b.getLength() == 0) {
+			mergedList.insertAtEnd(nodeA);
+			return mergedList;
+		}
+		
+		// use two pointers to traverse and compare values
+		while (nodeA != null && nodeB != null) {
+			if (nodeA.getData() < nodeB.getData()) {
+				mergedList.insertAtEnd(new ListNode(nodeA.getData()));
+				nodeA = nodeA.getNext();
+			} else {
+				// In case both nodes are equal, nodeB is added
+				mergedList.insertAtEnd(new ListNode(nodeB.getData()));
+				nodeB = nodeB.getNext();
+			}
+		}
+		
+		// list that did not reach the end will be appended to merged
+		if (nodeB == null)
+			mergedList.insertAtEnd(nodeA);
+		else
+			mergedList.insertAtEnd(nodeB);
+		
+		return mergedList;
 	}
 	
 	/**
