@@ -1,4 +1,7 @@
-package com.datastructures.list;
+package com.datastructures.list.problems;
+
+import com.datastructures.list.LinkedList;
+import com.datastructures.list.ListNode;
 
 public class LinkedListsProblems {
 
@@ -25,7 +28,40 @@ public class LinkedListsProblems {
 		b.insertAtEnd(node7);
 		b.insertAtEnd(node8);
 
-		System.out.println(sortedMerge(a, b));
+		System.out.println(reverse(a));
+	}
+	
+	/**
+	 * Reverse a linked list iteratively.
+	 */
+	static LinkedList reverse(LinkedList list) { // O(n)
+		ListNode prev;
+		ListNode curr;
+		
+		if (list == null)
+			throw new IllegalArgumentException("List to be reversed cannot be null");
+		
+		// single or empty list
+		if (list.getLength() <= 1) 
+			return list;
+		
+		prev = list.getHead();
+		curr = prev.getNext();
+		prev.setNext(null); // new tail
+		
+		while (curr != null) {
+			ListNode temp = curr.getNext();
+			curr.setNext(prev);
+
+			// move nodes
+			prev = curr;
+			curr = temp;
+
+			// p1 becomes new head
+			list.setHead(prev);
+		}
+		
+		return list;	
 	}
 	
 	/**
