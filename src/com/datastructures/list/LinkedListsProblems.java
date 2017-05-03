@@ -31,7 +31,7 @@ public class LinkedListsProblems {
 	/**
 	 * Merge two sorted lists to get a new sorted list with all elements from both lists.
 	 */
-	static LinkedList sortedMerge(LinkedList a, LinkedList b) {
+	static LinkedList sortedMerge(LinkedList a, LinkedList b) { // O(n)
 		LinkedList mergedList = new LinkedList();
 		ListNode nodeA;
 		ListNode nodeB;
