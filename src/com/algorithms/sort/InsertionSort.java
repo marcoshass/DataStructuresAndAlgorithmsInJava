@@ -9,11 +9,11 @@ public class InsertionSort {
 		insertionSort(data);
 		System.out.println(Arrays.toString(data)); // increasing
 		
-		insertionSortDecreasing(data);
-		System.out.println(Arrays.toString(data)); // descreasing
+		//insertionSortDecreasing(data);
+		//System.out.println(Arrays.toString(data)); // descreasing
 		
-		int v = 26;
-		System.out.println("Number:" + v + " found at:" + linearSearch(data, v));
+		//int v = 26;
+		//System.out.println("Number:" + v + " found at:" + linearSearch(data, v));
 	}
 
 // technique 01 - cormen
