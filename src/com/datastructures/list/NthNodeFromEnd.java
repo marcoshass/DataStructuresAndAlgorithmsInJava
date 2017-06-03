@@ -14,14 +14,13 @@ public class NthNodeFromEnd {
 		System.out.println(list);
 		
 		try {
-			ListNode nth = nthFromEnd(list, 7);
+			ListNode nth = nthNodeFromEndBruteForce(list, 3);
 			System.out.println("nth node:" + nth.getData());
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
-	// O(a) + O(b)
 	// O(n)
 	static ListNode nthFromEnd(LinkedList list, int position) {
 		if (list == null)
@@ -43,6 +42,25 @@ public class NthNodeFromEnd {
 		}
 		
 		return nthNode;
+	}
+	
+	static ListNode nthNodeFromEndBruteForce(LinkedList list, int Nth) { // O(n^2)
+		if (list == null)
+			throw new IllegalArgumentException("List cannot be null");
+		
+		// iterate until the last node
+		ListNode head = list.getHead();
+		for (ListNode p = head; p != null; p = p.getNext()) {	   					
+			int count = 0;
+			for (ListNode p1 = p; p1 != null; p1 = p1.getNext()) {  					
+				count++;
+			}
+			
+			// check nth node
+			if (Nth == count)
+				return p;			
+		}
+		return null;
 	}
 
 }
