@@ -16,34 +16,55 @@ public class NthNodeFromEnd {
 		System.out.println(list);
 		
 		try {
-			ListNode nth = nthNodeFromEndWithoutHash(list, 1);
+			ListNode nth = nthFromEndWithRecursion(list.getHead(), 1);
 			System.out.println("nth node:" + nth.getData());
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
-	// O(n)
-	static ListNode nthFromEnd(LinkedList list, int position) {
+	static int aux = 1;
+	
+	static ListNode nthFromEndWithRecursion(ListNode p1, int nth) {
+		if (p1.getNext() == null) {
+			return p1;
+		} else {
+			ListNode temp = nthFromEndWithRecursion(p1.getNext(), nth);
+			if (nth == aux)
+				return temp;
+			else
+				aux++;
+			
+			return p1;
+		}
+	}
+	
+	// time complexity O(n)
+	// space complexity O(1)
+	static ListNode nthFromEndOnePass(LinkedList list, int nth) {
 		if (list == null)
 			throw new IllegalArgumentException("List cannot be null");
+		if (nth < 0)
+			throw new IllegalArgumentException("nth node cannot be less than zero");
 		
-		ListNode current = list.getHead();
-		for (int i = 1; i <= position; i++) { // O(a)
-			if (current == null) {
-				throw new IllegalArgumentException("List length is not enough to return nth position");
+		ListNode p1 = list.getHead();
+		ListNode p = p1;
+		
+		int qtd = 1;
+		while (p1.getNext() != null) {
+			if (qtd == nth) {
+				p1 = p1.getNext();
+				p = p.getNext();
+			} else {
+				qtd++;
+				p1 = p1.getNext();
 			}
-			current = current.getNext();
-		}
-
-		// move both nodes
-		ListNode nthNode = list.getHead();
-		while (current != null) { // O(b)
-			current = current.getNext();
-			nthNode = nthNode.getNext();
 		}
 		
-		return nthNode;
+		if (qtd < nth) 
+			return null;
+		
+		return p;
 	}
 	
 	static ListNode nthNodeFromEndBruteForce(LinkedList list, int nth) { // O(n^2)
