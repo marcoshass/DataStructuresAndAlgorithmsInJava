@@ -16,7 +16,7 @@ public class NthNodeFromEnd {
 		System.out.println(list);
 		
 		try {
-			ListNode nth = nthFromEndWithRecursion(list.getHead(), 1);
+			ListNode nth = nthFromEndWithRecursion(list.getHead(), 2);
 			System.out.println("nth node:" + nth.getData());
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -29,10 +29,10 @@ public class NthNodeFromEnd {
 		if (p1.getNext() == null) {
 			return p1;
 		} else {
-			ListNode temp = nthFromEndWithRecursion(p1.getNext(), nth);
-			if (nth == aux)
+			ListNode temp = nthFromEndWithRecursion(p1.getNext(), nth); // T(n + 1)
+			if (nth == aux) // O(1)
 				return temp;
-			else
+			else  
 				aux++;
 			
 			return p1;
