@@ -7,26 +7,25 @@ public class LoopInLinkedList {
 	public static void main(String[] args) {
 		ListNode node1 = new ListNode(1);
 		ListNode node2 = new ListNode(2);
-		ListNode node3 = new ListNode(3);
 		ListNode node4 = new ListNode(4);
 		ListNode node5 = new ListNode(5);
-		ListNode node6 = new ListNode(6);
 		
 		node1.setNext(node2);
-		node2.setNext(node3);
-		node3.setNext(node4);
+		node2.setNext(node4);
 		node4.setNext(node5);
-		node5.setNext(node6);
-		node6.setNext(node4);
 		
 		LinkedList list = new LinkedList();
 		list.setHead(node1);
+
+		ListNode newNode = new ListNode(3); // insert node 3
+		ListNode newNode1 = new ListNode(6); // insert node 6
+		ListNode newNode3 = new ListNode(0); // insert node 0
 		
-		ListNode loopNode = findBeginOfLoop(list);
-		if (loopNode == null)
-			System.out.println("List does not have a loop");
-		else 
-			System.out.println("Loop is at node:" + loopNode.getData());
+		insertInSortedList(list, newNode);
+		insertInSortedList(list, newNode1);
+		insertInSortedList(list, newNode3);
+
+		System.out.println(list);
 	}
 	
 	// time complexity: O(n)
@@ -107,6 +106,64 @@ public class LoopInLinkedList {
 		}
 		
 		return slow;
+	}
+
+	// time complexity: O(n)
+	// space complexity: O(1)
+	static int findLengthOfTheLoop(LinkedList list) {
+		ListNode slow = list.getHead().getNext();
+		ListNode fast = slow.getNext();
+		
+		while (slow != fast) {
+			if (fast == null || fast.getNext() == null) 
+				return 0;
+			
+			slow = slow.getNext();
+			fast = fast.getNext().getNext();
+		}
+		
+		// slow == fast and has loop
+		int length = 1;
+		fast = fast.getNext();
+		while (slow != fast) {
+			fast = fast.getNext();
+			length++;
+		}
+		
+		return length;
+	}
+	
+	// time complexity: O(n)
+	// space complexity: O(1)
+	// assume that the list is not empty
+	static ListNode insertInSortedList(LinkedList list, ListNode newNode) {
+		ListNode current = list.getHead();
+		
+		// insert at head
+		if (current.getData() > newNode.getData()) { 
+			newNode.setNext(current);
+			list.setHead(newNode);
+			return newNode;
+		}
+		
+		while (current != null) {
+			// insert at tail
+			if (current.getNext() == null) {
+				current.setNext(newNode);
+				break;
+			} else {
+				// insert at middle
+				if (current.getNext().getData() > newNode.getData()) {
+					newNode.setNext(current.getNext());
+					current.setNext(newNode);
+					break;
+				} else {
+					current = current.getNext();
+				}
+			}
+		}
+		
+		return newNode;
 	}
 	
 }
