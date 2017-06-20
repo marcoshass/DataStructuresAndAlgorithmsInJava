@@ -1,6 +1,7 @@
 package com.datastructures.list;
 
 import java.util.Hashtable;
+import java.util.Stack;
 
 public class FindMergePoint {
 
@@ -22,7 +23,7 @@ public class FindMergePoint {
 		node2.setNext(node3);
 		node3.setNext(node7);
 		
-		ListNode mergeNode = findMergePointHashTable(node5, node1);
+		ListNode mergeNode = findMergePointArray(node5, node1);
 		System.out.println("Intersection node:" + mergeNode.getData());
 	}
 	
@@ -54,6 +55,76 @@ public class FindMergePoint {
 		for (ListNode p1 = head2; p1 != null; p1 = p1.getNext()) {
 			if (hash.containsKey(p1.getData())) {
 				return p1;
+			}
+		}
+		
+		return null;
+	}
+	
+	// time complexity: O(m) + O(n)
+	// space complexity: O(m) + O(n)
+	static ListNode findMergePointStack(ListNode head1, ListNode head2) {
+		Stack<ListNode> stack1 = new Stack();
+		for (; head1 != null; head1 = head1.getNext()) { // O(m)
+			stack1.push(head1);
+		}
+		
+		Stack<ListNode> stack2 = new Stack();
+		for (; head2 != null; head2 = head2.getNext()) { // O(n)
+			stack2.push(head2);
+		}
+		
+		ListNode tmp = null;
+		while (!stack1.isEmpty() & !stack2.isEmpty()) { // O(m) or O(n) (which one is bigger)
+			ListNode n1 = stack1.pop();
+			ListNode n2 = stack2.pop();
+			
+			if (n1.getData() == n2.getData()) {
+				tmp = n1;
+			} else {
+				break;
+			}
+		}
+		
+		return tmp;
+	}
+	
+	// time complexity: O(m+n)
+	// space complexity: O(m+n)
+	static ListNode findMergePointArray(ListNode head1, ListNode head2) {
+		int size = 100;
+		
+		ListNode[] array1 = new ListNode[size];
+		for (int i = 0; head1 != null; head1 = head1.getNext()) {
+			array1[i++] = head1;
+		}
+		
+		ListNode[] array2 = new ListNode[size];
+		for (int j = 0; head2 != null; head2 = head2.getNext()) {
+			array2[j++] = head2;
+		}
+		
+		ListNode tmp = null;
+		int i = size - 1;
+		int j = i;
+		
+		while (i >= 0 && j >= 0) {
+			if (array1[i] == null || array2[j] == null) {
+				if (array1[i] == null) {
+					i--;
+				}
+				if (array2[j] == null) {
+					j--;
+				}
+				continue;
+			} else {
+				if (array1[i].getData() == array2[j].getData()) {
+					tmp = array1[i];
+					i--;
+					j--;
+				} else {
+					return tmp;
+				}
 			}
 		}
 		
