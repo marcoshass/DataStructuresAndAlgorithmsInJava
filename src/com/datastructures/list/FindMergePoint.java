@@ -1,7 +1,6 @@
 package com.datastructures.list;
 
-import java.util.Hashtable;
-import java.util.Stack;
+import java.util.*;
 
 public class FindMergePoint {
 
@@ -23,7 +22,7 @@ public class FindMergePoint {
 		node2.setNext(node3);
 		node3.setNext(node7);
 		
-		ListNode mergeNode = findMergePointArray(node5, node1);
+		ListNode mergeNode = findMergePointSort(node1, node5);
 		System.out.println("Intersection node:" + mergeNode.getData());
 	}
 	
@@ -64,12 +63,12 @@ public class FindMergePoint {
 	// time complexity: O(m) + O(n)
 	// space complexity: O(m) + O(n)
 	static ListNode findMergePointStack(ListNode head1, ListNode head2) {
-		Stack<ListNode> stack1 = new Stack();
+		java.util.Stack<ListNode> stack1 = new java.util.Stack();
 		for (; head1 != null; head1 = head1.getNext()) { // O(m)
 			stack1.push(head1);
 		}
 		
-		Stack<ListNode> stack2 = new Stack();
+		java.util.Stack<ListNode> stack2 = new java.util.Stack();
 		for (; head2 != null; head2 = head2.getNext()) { // O(n)
 			stack2.push(head2);
 		}
@@ -125,6 +124,40 @@ public class FindMergePoint {
 				} else {
 					return tmp;
 				}
+			}
+		}
+		
+		return null;
+	}
+	
+	// time complexity: O(Max(nlogn, mlogm))
+	// space complexity: O(Max(n,m))
+	static ListNode findMergePointSort(ListNode head1, ListNode head2) {
+		List<ListNode> list = new ArrayList<ListNode>();
+		for (;head1 != null; head1 = head1.getNext()) { // O(n)
+			list.add(head1);
+		}
+
+		// sort the elements fewer than O(n*logn)
+		ListNode[] array1 = list.toArray(new ListNode[list.size()]);
+		Arrays.sort(array1, new Comparator<ListNode>() {
+			@Override
+			public int compare(ListNode o1, ListNode o2) {
+				return Integer.valueOf(o1.getData()).compareTo(Integer.valueOf(o2.getData()));
+			}
+		});
+		
+		// iterate over the second list and binarysearch in the array O(n*logn)
+		for (; head2 != null; head2 = head2.getNext()) {
+			int retValue = Arrays.binarySearch(array1, head2, new Comparator<ListNode>(){
+				@Override
+				public int compare(ListNode o1, ListNode o2) {
+					return Integer.valueOf(o1.getData()).compareTo(Integer.valueOf(o2.getData()));
+				}
+			});
+			
+			if (retValue >= 0) {
+				return head2;
 			}
 		}
 		
