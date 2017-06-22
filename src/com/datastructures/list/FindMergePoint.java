@@ -22,7 +22,7 @@ public class FindMergePoint {
 		node2.setNext(node3);
 		node3.setNext(node7);
 		
-		ListNode mergeNode = findMergePointSort(node1, node5);
+		ListNode mergeNode = findMergePointOrderOfN(node1, node5);
 		System.out.println("Intersection node:" + mergeNode.getData());
 	}
 	
@@ -158,6 +158,45 @@ public class FindMergePoint {
 			
 			if (retValue >= 0) {
 				return head2;
+			}
+		}
+		
+		return null;
+	}
+	
+	// time complexity: O(n)
+	// space complexity: O(1)
+	static ListNode findMergePointOrderOfN(ListNode head1, ListNode head2) {
+		int length1 = 0;
+		int length2 = 0;
+		
+		for (ListNode p = head1; p != null; p = p.getNext()) {
+			length1++;
+		}
+		
+		for (ListNode p = head2; p != null; p = p.getNext()) {
+			length2++;
+		}
+		
+		// advances the longer list
+		int diff = length1 - length2;
+		if (diff < 0) { // head1 is smaller, advances head2
+			for (int i = 0; i < diff * -1; i++) {
+				head2 = head2.getNext();
+			}
+		} else {
+			for (int i = 0; i < diff; i++) {
+				head1 = head1.getNext();
+			}
+		}
+		
+		// advances until both nodes are equal
+		while (head1 != null && head2 != null) {
+			if (head1.getData() != head2.getData()) {
+				head1 = head1.getNext();
+				head2 = head2.getNext();
+			} else {
+				return head1; // nodes are equal
 			}
 		}
 		
