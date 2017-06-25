@@ -235,12 +235,11 @@ public class DoublyLinkedList {
 		if (length == 0)
 			return result;
 		
-		result = "[" + head.getNext().getData();
-		DLLNode temp = head.getNext().getNext();
-		while (temp != null) {
-			result += "," + temp.getData();
-			temp = temp.getNext();
+		result = "[";
+		for (DLLNode p = head; p != null; p = p.getNext()) {
+			result += p.getData() + ",";
 		}
+		result = result.substring(0, result.length() - 1); // crop last comma
 		return result + "]";
 	}
 	
