@@ -6,7 +6,7 @@ public class LinkedListSort {
 
 	public static void main(String[] args) {
 //		int[] arrayToSort = { 1, 2, 3, 5, 4 };
-		int[] arrayToSort = { 1, 2, 3, 5, 4 };		
+		int[] arrayToSort = { 1, 2, 3, 4, 5 };		
 		bubbleSortVeryOptimized(arrayToSort);
 		//System.out.println(Arrays.toString(arrayToSort));
 	}
