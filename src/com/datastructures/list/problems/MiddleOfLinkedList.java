@@ -1,6 +1,8 @@
-package com.datastructures.list;
+package com.datastructures.list.problems;
 
 import java.util.*;
+
+import com.datastructures.list.ListNode;
 
 public class MiddleOfLinkedList {
 

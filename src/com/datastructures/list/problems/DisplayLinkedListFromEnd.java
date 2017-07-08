@@ -1,4 +1,6 @@
-package com.datastructures.list;
+package com.datastructures.list.problems;
+
+import com.datastructures.list.ListNode;
 
 public class DisplayLinkedListFromEnd {
 

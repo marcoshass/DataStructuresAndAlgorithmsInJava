@@ -1,6 +1,9 @@
-package com.datastructures.list;
+package com.datastructures.list.problems;
 
 import java.util.Hashtable;
+
+import com.datastructures.list.LinkedList;
+import com.datastructures.list.ListNode;
 
 public class LoopInLinkedList {
 
