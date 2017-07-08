@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import com.datastructures.list.LinkedList;
 import com.datastructures.list.ListNode;
 
-public class NthNodeFromEnd {
+public class LinkedListNthNodeFromEnd {
 
 	public static void main(String[] args) {
 		LinkedList list = new LinkedList();

@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.datastructures.list.ListNode;
 
-public class MiddleOfLinkedList {
+public class LinkedListFindMiddle {
 
 	public static void main(String[] args) {
 		ListNode node1 = new ListNode(1);

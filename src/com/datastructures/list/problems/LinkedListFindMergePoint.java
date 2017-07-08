@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.datastructures.list.ListNode;
 
-public class FindMergePoint {
+public class LinkedListFindMergePoint {
 
 	public static void main(String[] args) {
 		ListNode node5 = new ListNode(5);

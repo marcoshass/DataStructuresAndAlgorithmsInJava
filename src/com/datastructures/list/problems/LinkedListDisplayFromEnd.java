@@ -2,7 +2,7 @@ package com.datastructures.list.problems;
 
 import com.datastructures.list.ListNode;
 
-public class DisplayLinkedListFromEnd {
+public class LinkedListDisplayFromEnd {
 
 	public static void main(String[] args) {
 		ListNode node1 = new ListNode(1);

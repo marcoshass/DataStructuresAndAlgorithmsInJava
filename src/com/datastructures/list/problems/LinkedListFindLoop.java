@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import com.datastructures.list.LinkedList;
 import com.datastructures.list.ListNode;
 
-public class LoopInLinkedList {
+public class LinkedListFindLoop {
 
 	public static void main(String[] args) {
 		ListNode node1 = new ListNode(1);

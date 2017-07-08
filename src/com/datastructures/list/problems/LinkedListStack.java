@@ -3,7 +3,7 @@ package com.datastructures.list.problems;
 import com.datastructures.list.LinkedList;
 import com.datastructures.list.ListNode;
 
-public class StackUsingLinkedList {
+public class LinkedListStack {
 
 	public static void main(String[] args) {
 		Stack stack = new Stack();

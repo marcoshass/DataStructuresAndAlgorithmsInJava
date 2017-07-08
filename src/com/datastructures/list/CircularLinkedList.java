@@ -1,6 +1,4 @@
-package com.datastructures.list.problems;
-
-import com.datastructures.list.CLLNode;
+package com.datastructures.list;
 
 public class CircularLinkedList {
 
