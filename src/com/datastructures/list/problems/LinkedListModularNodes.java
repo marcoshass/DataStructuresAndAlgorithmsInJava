@@ -2,7 +2,6 @@ package com.datastructures.list.problems;
 
 import com.datastructures.list.LinkedList;
 import com.datastructures.list.ListNode;
-import java.util.Hashtable;
 
 public class LinkedListModularNodes {
 
