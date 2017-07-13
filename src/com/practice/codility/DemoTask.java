@@ -14,8 +14,8 @@ public class DemoTask {
 			return -1;
 		if (A.length == 1)
 			return 0;
-		
-		long[] lookup = new long[A.length];
+		 
+		long[] lookup = new long[A.length]; //test
 		
 		// feed lookup array O(n)
 		long leftSum = 0;
