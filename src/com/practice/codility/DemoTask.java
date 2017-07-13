@@ -15,10 +15,10 @@ public class DemoTask {
 		if (A.length == 1)
 			return 0;
 		
-		int[] lookup = new int[A.length];
+		long[] lookup = new long[A.length];
 		
 		// feed lookup array O(n)
-		int leftSum = 0;
+		long leftSum = 0;
 		for (int i = 0; i < A.length; i++) {
 			if (i == 0) {
 				lookup[i] = 0;
@@ -29,7 +29,7 @@ public class DemoTask {
 		}
 		
 		// lookup a match O(n)
-		int rightSum = 0;
+		long rightSum = 0;
 		for (int i = A.length - 1; i >= 0; i--) {
 			if (i == A.length - 1) {
 				rightSum = 0;
