@@ -11,35 +11,45 @@ public class LinkedListModularNodes {
 		ListNode node3 = new ListNode(3);
 		ListNode node4 = new ListNode(4);
 		ListNode node5 = new ListNode(5);
+		ListNode node6 = new ListNode(6);
+		ListNode node7 = new ListNode(7);
+		ListNode node8 = new ListNode(8);
+		ListNode node9 = new ListNode(9);
 		
 		node1.setNext(node2);
 		node2.setNext(node3);
 		node3.setNext(node4);
 		node4.setNext(node5);
+		node5.setNext(node6);
+		node6.setNext(node7);
+		node7.setNext(node8);
+		node8.setNext(node9);
 		
 		ListNode ret = modularNodes(node1, 3);
-		LinkedList l = new LinkedList();
-		l.setHead(ret);
+		if (ret != null) {
+			ret.setNext(null);
+			System.out.println(ret.getData());
+		} else {
+			System.out.println("Node not found!");
+		}
 		
-		System.out.println(l);
 	}
 	
 	// time complexity: O(n)
 	// space complexity: O(1)
 	static ListNode modularNodes(ListNode head, int k) {
-		if (head == null || head.getNext() == null)
+		if (head == null)
 			return head;
 		
-		int i = 1;
-		ListNode modularNode = null;
+		int n = 1;
 		
-		for(; head != null; head = head.getNext()) {
-			if (i%k == 0) {
+		ListNode modularNode = null;
+		for (; head != null; head = head.getNext()) {
+			if (n++ % k == 0) {
 				modularNode = head;
 			}
-			i++;
 		}
-
+		
 		return modularNode;
 	}
 
