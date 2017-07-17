@@ -3,10 +3,26 @@ package com.practive.epi;
 public class BitManipulation {
 
 	public static void main(String[] args) {
-		int numberToCheck = 28;
-		System.out.println(parity(numberToCheck));
+		int numberToCheck = 14;
+		//System.out.println(parity(numberToCheck));
+		System.out.println(countBitsOptimized(numberToCheck));
 	}
 	
+	// time complexity: O(numOfOnes)
+	// space complexity: O(1)
+	static short countBitsOptimized(int x) {
+		short numBits = 0;
+		
+		while (x != 0) {
+			x = x & (x - 1);
+			numBits++;
+		}
+		
+		return numBits;
+	}
+	
+	// time complexity: O(numOfBits)
+	// space complexity: O(1)
 	static short countBits(int x) {
 		short numBits = 0;
 
