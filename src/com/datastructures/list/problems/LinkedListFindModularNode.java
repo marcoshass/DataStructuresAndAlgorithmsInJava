@@ -3,7 +3,7 @@ package com.datastructures.list.problems;
 import com.datastructures.list.LinkedList;
 import com.datastructures.list.ListNode;
 
-public class LinkedListModularNodes {
+public class LinkedListFindModularNode {
 
 	public static void main(String[] args) {
 		ListNode node1 = new ListNode(1);
