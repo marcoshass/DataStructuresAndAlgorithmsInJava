@@ -1,11 +1,12 @@
 package com.datastructures.stacks.problems;
 
+
 import java.util.Stack;
 
 public class StackCheckBalancingOfSymbols {
 
 	public static void main(String[] args) {
-		String formula = "((A+B)+[C-D]}";
+		String formula = "((A+B)+[C-D])";
 		System.out.println(isBalanced(formula));
 	}
 
