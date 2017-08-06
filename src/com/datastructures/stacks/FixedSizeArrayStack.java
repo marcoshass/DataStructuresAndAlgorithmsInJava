@@ -19,7 +19,7 @@ public class FixedSizeArrayStack implements IStack {
 	
 	public void push(int value) {
 		if (top == stack.length - 1) 
-			throw new StackOverflowException("cannot push element into a full stack");
+			throw new StackOverflowException("cannot push element into a full stack"); 
 
 		size++;
 		stack[++top] = value;
