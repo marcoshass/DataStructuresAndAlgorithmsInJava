@@ -1,6 +1,6 @@
 package com.datastructures.queue;
 
-public class FixedSizeArrayQueue {
+public class FixedSizeArrayQueue implements Queue {
 
 	private int[] queue;
 
@@ -48,6 +48,14 @@ public class FixedSizeArrayQueue {
 		return dequeueValue;
 	}
 
+	public int getSize() {
+		return size;
+	}
+	
+	public int getRawSize() {
+		return queue.length;
+	}
+	
 	private void reset() {
 		size = 0;
 		front = -1;
