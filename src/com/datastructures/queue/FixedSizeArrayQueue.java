@@ -163,10 +163,3 @@ public class FixedSizeArrayQueue implements Queue {
 
 }
 
-class FullQueueException extends RuntimeException {
-
-}
-
-class EmptyQueueException extends RuntimeException {
-
-}
