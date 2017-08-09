@@ -47,13 +47,14 @@ public class DynamicArrayQueue implements Queue {
 	private int[] shrink() {
 		int[] shrinkedArray = new int[queue.length / 2];
 
-		for (int i = 0; i < getSize(); i++) {
-			shrinkedArray[i] = dequeue();
+		int j = 0;
+		for (int i = front; i <= rear; i++) {
+			shrinkedArray[j++] = queue[i];
 		}
 
 		// adjust pointers
 		front = 0;
-		rear = getSize()-1;		
+		rear = j-1;		
 		
 		return shrinkedArray;
 	}
@@ -70,6 +71,7 @@ public class DynamicArrayQueue implements Queue {
 		dequeueValue = queue[front];
 		if (front == rear) {
 			reset();
+			return dequeueValue;
 		} else {
 			front = (front + 1) % queue.length;
 			size--;
@@ -118,11 +120,11 @@ public class DynamicArrayQueue implements Queue {
 		Queue queue = createFullQueue();
 		assert (queue.getSize() == CAPACITY);
 
-		while (queue.getSize() > queue.getRawSize()/4) {
+		for (int i = CAPACITY; i > CAPACITY/4; i--) {
 			queue.dequeue();
 		}
 		
-		assert (queue.getRawSize() == queue.getSize() * 2);
+		assert (queue.getRawSize() == CAPACITY/2);
 	}
 
 	private static void testExpandQueue() {
