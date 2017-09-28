@@ -14,9 +14,9 @@ public class ComputerXPowerY {
 			x = 1.0 / x;
 		}
 		while (power != 0) {
-//			if ((power & 1) != 0) {
-//				result *= x;
-//			}
+			if ((power & 1) != 0) {
+				result *= x;
+			}
 			x *= x;
 			power >>>= 1;
 		}
