@@ -3,7 +3,7 @@ package com.practive.epi;
 public class ComputerXPowerY {
 
 	public static void main(String[] args) {
-		System.out.println(power(12, 3));
+		System.out.println(power(3, 13));
 	}
 
 	public static double power(double x, int y) {
