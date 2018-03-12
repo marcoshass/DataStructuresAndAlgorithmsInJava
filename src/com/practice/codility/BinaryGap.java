@@ -7,25 +7,26 @@ public class BinaryGap {
 		System.out.println("BinaryGap of (" + N + "): " + solution(N));
 	}
 
-	static int solution(int N) {
-		int maxGap = 0;
-		int count = 0;
-		boolean started = false;
+	static int solution(int i) {
+		int cnt = 0;
+		int result = 0;
+		boolean found_one = false;
 
-		while (N > 0) {
-			if ((N & 1) > 0) {
-				if (started & count > maxGap) {
-					maxGap = count;
+		while (i > 0) {
+			if ((i & 1) == 1) {
+				if (!found_one) {
+					found_one = true;
+				} else {
+					result = Math.max(result, cnt);
 				}
-				started = true;
-				count = 0;
+				cnt = 0;
 			} else {
-				count++;
+				cnt++;
 			}
-			N >>>= 1;
+			i >>>= 1;
 		}
 
-		return maxGap;
+		return result;
 	}
 
 }
