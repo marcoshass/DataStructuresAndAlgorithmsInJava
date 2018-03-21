@@ -1,37 +1,27 @@
 package com.practice.leetcode;
 
-import java.util.Hashtable;
+import java.util.*;
 
 public class LongestSubstring {
 
 	public static void main(String[] args) {
-		System.out.println("Length of the longest: " + lengthOfLongestSubstring("dvdf"));
+		System.out.println("Length of the longest: " + lengthOfLongestSubstring("abcabb"));
 	}
 
 	static int lengthOfLongestSubstring(String s) {
-		String longest = "", acum = "";
-		Hashtable<Character, Integer> letters = new Hashtable<>();
-
-		for (int i = 0; i < s.length(); i++) {
-			if (!letters.containsKey(s.charAt(i))) {
-				letters.put(s.charAt(i), i);
-				acum += s.charAt(i);
-				if (i == s.length() - 1) {
-					longest = getMaxString(acum, longest);
-				}
-
+		int n = s.length();
+		Set<Character> set = new HashSet<>();
+		int ans = 0, i = 0, j = 0;
+		while (i < n && j < n) {
+			// try to extend the range [i, j]
+			if (!set.contains(s.charAt(j))) {
+				set.add(s.charAt(j++));
+				ans = Math.max(ans, j - i);
 			} else {
-				longest = getMaxString(acum, longest);
-				acum = String.valueOf(s.charAt(i));
-				letters.clear();
-				letters.put(s.charAt(i), i);
+				set.remove(s.charAt(i++));
 			}
 		}
-		return longest.length();
-	}
-
-	static String getMaxString(String s1, String s2) {
-		return s1.length() > s2.length() ? s1 : s2;
+		return ans;
 	}
 
 }
