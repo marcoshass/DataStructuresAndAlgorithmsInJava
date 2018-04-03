@@ -21,7 +21,6 @@ public class AllMnemonicsForPhone {
 
 	static void phoneMnemonicHelper(String prefix, String suffix, List<String> mnemonics) {
 		if (suffix.equals("")) {
-			//System.out.println(prefix);
 			mnemonics.add(prefix);
 		} else {
 			String digits = MAPPING[Integer.valueOf(suffix.substring(0, 1))];
