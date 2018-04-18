@@ -4,22 +4,21 @@ public class NumberOfBits {
 
 	public static void main(String[] args) {
 		int x = 0b11000101;
-		System.out.printf("O(number_of_bits_set):%d O(number_of_ones_set):%d", numberOfBits(x),
-				numberOfBitsImproved(x));
+		System.out.printf("O(N):%d O(NBits):%d", countBits(x), countBits1(x));
 	}
 
-	static int numberOfBits(int x) {
-		int count = 0;
-		while (x > 0) {
-			count += (x & 1);
+	static short countBits(int x) {
+		short numBits = 0;
+		while (x != 0) {
+			numBits += (x & 1);
 			x >>>= 1;
 		}
-		return count;
+		return numBits;
 	}
 
-	static int numberOfBitsImproved(int x) {
+	static int countBits1(int x) {
 		int count = 0;
-		while (x > 0) {
+		while (x != 0) {
 			count++;
 			x &= (x - 1);
 		}
