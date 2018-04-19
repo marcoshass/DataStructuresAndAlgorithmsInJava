@@ -3,9 +3,15 @@ package com.practice.epi.primitive;
 public class ParityOfWord {
 
 	public static void main(String[] args) {
-		int x = 0b0011001111111;
-		System.out.printf("1:: brute-force-mod2=%d \n2:: brute-force-xor=%d \n3:: optimized (ones)=%d", parity(x),
-				parity1(x), parity2(x));
+		long x = Long.MAX_VALUE;
+		System.out.printf("1:: brute-force-mod2=%d"
+				+ " \n2:: brute-force-xor=%d"
+				+ " \n3:: optimized (ones)=%d"
+				+ " \n4:: lookup-table=%d", 
+				parity(x),
+				parity1(x),
+				parity2(x),
+				parity3(x));
 	}
 
 	// 1:: brute force - mod 2
@@ -19,7 +25,7 @@ public class ParityOfWord {
 	}
 
 	// 2:: brute force - xor
-	public static short parity1(int x) {
+	public static short parity1(long x) {
 		short result = 0;
 		while (x != 0) {
 			result ^= (x & 1);
@@ -29,7 +35,7 @@ public class ParityOfWord {
 	}
 
 	// 3:: optimized - n_of_ones
-	public static short parity2(int x) {
+	public static short parity2(long x) {
 		short result = 0;
 		while (x != 0) {
 			result ^= 1;
@@ -37,4 +43,28 @@ public class ParityOfWord {
 		}
 		return result;
 	}
+	
+	// 4:: lookup based
+	public static short parity3(long x) {
+		final int WORD_SIZE = 16;
+		final int BIT_MASK = 0b1111111111111111;
+		
+		return (short)(
+				precomputedparity()[(int) ((x >>> (3 * WORD_SIZE)) & BIT_MASK)] ^
+				precomputedparity()[(int) ((x >>> (2 * WORD_SIZE)) & BIT_MASK)] ^
+				precomputedparity()[(int) ((x >>> (1 * WORD_SIZE)) & BIT_MASK)] ^
+				precomputedparity()[(int) (x & BIT_MASK)]);
+	}
+	
+
+	static short[] precomputedparity() {
+		final int CACHE_SIZE = 65536;
+		short[] cache = new short[CACHE_SIZE];
+		
+		for (int i = 0; i < CACHE_SIZE; ++i) {
+			cache[i] = parity2(i);
+		}
+		return cache;
+	}
+	
 }
