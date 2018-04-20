@@ -60,7 +60,9 @@ public class ParityOfWord {
 
 	// 5:: xor
 	public static short parity4(long x) {
-		//		long x = 0b11010111;
+		x ^= x >>> 32;		
+		x ^= x >>> 16;		
+		x ^= x >>> 8;		
 		x ^= x >>> 4;
 		x ^= x >>> 2;
 		x ^= x >>> 1;
