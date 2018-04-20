@@ -3,15 +3,17 @@ package com.practice.epi.primitive;
 public class ParityOfWord {
 
 	public static void main(String[] args) {
-		long x = Long.MAX_VALUE;
+		long x = 0b11010110;
 		System.out.printf("1:: brute-force-mod2=%d"
 				+ " \n2:: brute-force-xor=%d"
 				+ " \n3:: optimized (ones)=%d"
-				+ " \n4:: lookup-table=%d", 
+				+ " \n4:: lookup-table=%d"
+				+ " \n5:: xor=%d",
 				parity(x),
 				parity1(x),
 				parity2(x),
-				parity3(x));
+				parity3(x),
+				parity4(x));
 	}
 
 	// 1:: brute force - mod 2
@@ -55,7 +57,15 @@ public class ParityOfWord {
 				precomputedparity()[(int) ((x >>> (1 * WORD_SIZE)) & BIT_MASK)] ^
 				precomputedparity()[(int) (x & BIT_MASK)]);
 	}
-	
+
+	// 5:: xor
+	public static short parity4(long x) {
+		//		long x = 0b11010111;
+		x ^= x >>> 4;
+		x ^= x >>> 2;
+		x ^= x >>> 1;
+		return (short) (x & 1);
+	}
 
 	static short[] precomputedparity() {
 		final int CACHE_SIZE = 65536;
