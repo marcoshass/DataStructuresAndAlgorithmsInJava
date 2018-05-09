@@ -30,6 +30,15 @@ public class DutchNationalFlag {
 			}
 		}
 		
+		for (int i = A.size() -1; i >= 0 && A.get(i).ordinal() >= pivot.ordinal(); --i) {
+			for (int j = i - 1;  j >= 0 && A.get(j).ordinal() >= pivot.ordinal(); --j) {
+				if (A.get(j).ordinal() > pivot.ordinal()) {
+					Collections.swap(A, i, j);
+					break;
+				}
+			}
+		}
+		
 		System.out.println(A);
 	}
 
