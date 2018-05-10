@@ -21,6 +21,21 @@ public class DutchNationalFlag {
 	
 	public static void dutchFlagPartition(int pivotIndex, List<Color> A) {
 		Color pivot = A.get(pivotIndex);
+		int smaller = 0, equal = 0, larger = A.size();
+		while (equal < larger) {
+			if (A.get(equal).ordinal() < pivot.ordinal()) {
+				Collections.swap(A, smaller++, equal++);
+			} else if (A.get(equal).ordinal() == pivot.ordinal()) {
+				++equal;
+			} else {
+				Collections.swap(A, equal, --larger);
+			}
+		}
+		System.out.println(A);
+	}
+	
+	public static void dutchFlagPartition1(int pivotIndex, List<Color> A) {
+		Color pivot = A.get(pivotIndex);
 		for (int i = 0; i < A.size(); ++i) {
 			for (int j = i + 1; j < A.size(); ++j) {
 				if (A.get(j).ordinal() < pivot.ordinal()) {
