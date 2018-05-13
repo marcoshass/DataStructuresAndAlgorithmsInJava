@@ -45,7 +45,7 @@ class ListNode<T> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (ListNode p = this; p != null; p = p.next) {
+		for (ListNode<T> p = this; p != null; p = p.next) {
 			sb.append(p.data);
 			sb.append("->");
 		}
