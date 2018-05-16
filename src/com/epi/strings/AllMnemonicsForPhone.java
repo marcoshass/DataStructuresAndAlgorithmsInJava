@@ -1,4 +1,4 @@
-package com.practice.epi.strings;
+package com.epi.strings;
 
 import java.util.ArrayList;
 import java.util.List;

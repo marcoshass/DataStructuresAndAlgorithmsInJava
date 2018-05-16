@@ -1,4 +1,4 @@
-package com.practice.epi.arrays;
+package com.epi.arrays;
 
 import java.util.*;
 

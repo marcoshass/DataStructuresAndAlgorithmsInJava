@@ -1,4 +1,4 @@
-package com.practice.epi.primitive;
+package com.epi.primitive;
 
 public class ParityOfWord {
 

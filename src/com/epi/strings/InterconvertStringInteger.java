@@ -1,4 +1,4 @@
-package com.practice.epi.strings;
+package com.epi.strings;
 
 public class InterconvertStringInteger {
 

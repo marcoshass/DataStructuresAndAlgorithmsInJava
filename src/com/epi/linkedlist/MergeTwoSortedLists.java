@@ -1,4 +1,4 @@
-package com.practice.epi.linkedlist;
+package com.epi.linkedlist;
 
 public class MergeTwoSortedLists {
 
