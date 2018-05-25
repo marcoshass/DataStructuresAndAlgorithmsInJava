@@ -1,30 +1,53 @@
 package com.epi.stacks;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
-
-import com.epi.linkedlist.*;
+import java.util.LinkedList;
 
 public class StackWithMaxApi {
 
 	public static void main(String[] args) {
-		ListNode<Integer> head = new ListNode<>(0); 
-		ListNode<Integer> current = head;
-		for (int i = 1; i <= 4; ++i) {
-			current.next = new ListNode<Integer>(i);
-			current = current.next;
-		}
-		printLinkedListInReverse(head);
-	}
+		StackWithMax<Integer> myStack = new StackWithMax<>();
+		myStack.push(1);
+		printMax(myStack); // 1
 
-	static void printLinkedListInReverse(ListNode<Integer> head) {
-		Deque<Integer> nodes = new ArrayDeque<>();
-		while (head != null) {
-			nodes.push(head.data); // 4 3 2 1 0
-			head = head.next;
-		}
-		while (!nodes.isEmpty()) {
-			System.out.printf("%d\n", nodes.poll());
-		}
+		myStack.push(3);
+		printMax(myStack); // 3
+		
+		myStack.push(0);
+		printMax(myStack); // 3
+		
+		myStack.push(8);
+		printMax(myStack); // 8
+		
+		myStack.push(2);
+		printMax(myStack); // 8
+	}
+	
+	static void printMax(StackWithMax stack) {
+		System.out.println(stack.max());
+	}
+}
+
+class StackWithMax<T extends Comparable<T>> {
+	private Deque<T> wrappedStack = new LinkedList<>();
+	private Deque<T> maxStack = new LinkedList<>();
+	
+	public boolean empty() {
+		return wrappedStack.isEmpty();
+	}
+	
+	public T max() {
+		return maxStack.peek();
+	}
+	
+	public T pop() {
+		maxStack.pop();
+		return wrappedStack.pop();
+	}
+	
+	public void push(T x) {
+		wrappedStack.push(x);
+		T maxValue = max() == null ? x : max();
+		maxStack.push(x.compareTo(maxValue) > 0 ? x : maxValue);
 	}
 }
