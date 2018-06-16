@@ -4,50 +4,70 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class StackWithMaxApi {
-
 	public static void main(String[] args) {
-		StackWithMax<Integer> myStack = new StackWithMax<>();
-		myStack.push(1);
-		printMax(myStack); // 1
-
-		myStack.push(3);
-		printMax(myStack); // 3
+		Stack<Integer>stack = new Stack<>();
+		stack.push(new ElementWithCachedMax<>(6));
+		stack.push(new ElementWithCachedMax<>(4));
+		stack.push(new ElementWithCachedMax<>(3));
+		stack.push(new ElementWithCachedMax<>(7));
 		
-		myStack.push(0);
-		printMax(myStack); // 3
-		
-		myStack.push(8);
-		printMax(myStack); // 8
-		
-		myStack.push(2);
-		printMax(myStack); // 8
+		printMax(stack);
+		stack.pop();
+		printMax(stack);
+		stack.pop();
+		printMax(stack);
+		stack.pop();
+		printMax(stack);
 	}
 	
-	static void printMax(StackWithMax stack) {
-		System.out.println(stack.max());
+	static void printMax(Stack<Integer> s) {
+		System.out.println(s.max());		
 	}
 }
 
-class StackWithMax<T extends Comparable<T>> {
-	private Deque<T> wrappedStack = new LinkedList<>();
-	private Deque<T> maxStack = new LinkedList<>();
-	
-	public boolean empty() {
-		return wrappedStack.isEmpty();
+class ElementWithCachedMax<T extends Comparable<T>> {
+	public T value;
+
+	public T max;
+
+	public ElementWithCachedMax(T element) {
+		this(element, null);
 	}
-	
-	public T max() {
-		return maxStack.peek();
+
+	public ElementWithCachedMax(T element, T max) {
+		this.value = element;
+		this.max = max;
 	}
-	
-	public T pop() {
-		maxStack.pop();
-		return wrappedStack.pop();
+}
+
+class Stack<T extends Comparable<T>> {
+	private Deque<ElementWithCachedMax<T>> elementWithCachedMax = 
+			new LinkedList<>();
+
+	boolean empty() {
+		return elementWithCachedMax.isEmpty();
 	}
-	
-	public void push(T x) {
-		wrappedStack.push(x);
-		T maxValue = max() == null ? x : max();
-		maxStack.push(x.compareTo(maxValue) > 0 ? x : maxValue);
+
+	T max() {
+		if (empty()) {
+			throw new IllegalStateException("max(): empty stack");
+		}
+		return elementWithCachedMax.peek().max;
+	}
+
+	ElementWithCachedMax<T> pop() {
+		if (empty()) {
+			throw new IllegalStateException("pop(): empty stack");
+		}
+		return elementWithCachedMax.pop();
+	}
+
+	void push(ElementWithCachedMax<T> element) {
+		element.max = element.value;
+		if (!elementWithCachedMax.isEmpty()) {
+			T currentMax = elementWithCachedMax.peek().max;
+			element.max = element.value.compareTo(currentMax) > 0 ? element.value : currentMax;
+		}
+		elementWithCachedMax.push(element);
 	}
 }
