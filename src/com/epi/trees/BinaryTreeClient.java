@@ -36,8 +36,8 @@ public class BinaryTreeClient {
 		System.out.printf("(height)=%d", height(nodes.get('A'))-1);
 		System.out.printf("\n(balanced)=%b", isBalanced(nodes.get('A')));
 	}
-
-	static boolean isBalanced(BinaryTreeNode<Character> root) {
+	
+	static boolean isBalanced(BinaryTreeNode<Character> root) { 
 		return Math.abs(height(root.left) - height(root.right)) <= 1;
 	}
 	
